@@ -9,17 +9,15 @@ require("dotenv").config();
 // import routes
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
+const connectDB = require("./connect.js")
 
 // app
 const app = express();
 
 // db
-mongoose
-    .connect(process.env.DATABASE, {
-        useNewUrlParser: true,
-        useCreateIndex: true
-    })
-    .then(() => console.log("DB Connected"));
+
+connectDB();
+
 
 // middlewares
 app.use(morgan("dev"));
