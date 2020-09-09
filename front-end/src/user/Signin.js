@@ -45,7 +45,7 @@ const Signin = () => {
       {/* <Header /> */}
       {/* <NavigationBar /> */}
       <div className="login-form" style={{ textAlign: "center" }}>
-        <form noValidate autoComplete="off">
+        <form>
           <h2 className="text-center" style={{ padding: "15px" }}>
             Sign in
           </h2>
