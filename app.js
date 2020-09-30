@@ -9,24 +9,15 @@ require("dotenv").config();
 // import routes
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
-const connectDB = require("./connect.js")
+const complainRoutes = require("./routes/complain");
+const connectDB = require("./connect.js");
 
 // app
 const app = express();
 
 // db
-<<<<<<< HEAD
-mongoose
-  .connect(process.env.DATABASE, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-  })
-  .then(() => console.log("DB Connected"));
-=======
 
 connectDB();
-
->>>>>>> 4509bb0db1c59af045dceb53fd9cefde617fa2c2
 
 // middlewares
 app.use(morgan("dev"));
@@ -38,6 +29,7 @@ app.use(cors());
 // routes middleware
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
+app.use("/api", complainRoutes);
 
 const port = process.env.PORT || 8000;
 
