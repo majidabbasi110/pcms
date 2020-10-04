@@ -15,18 +15,9 @@ const connectDB = require("./connect.js")
 const app = express();
 
 // db
-<<<<<<< HEAD
-mongoose
-  .connect(process.env.DATABASE, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-  })
-  .then(() => console.log("DB Connected"));
-=======
 
 connectDB();
 
->>>>>>> 4509bb0db1c59af045dceb53fd9cefde617fa2c2
 
 // middlewares
 app.use(morgan("dev"));
