@@ -7,6 +7,7 @@ import PrivateRoute from "./auth/PrivateRoute";
 import Dashboard from "./user/UserDashboard";
 import AdminRoute from "./auth/AdminRoute";
 import AdminDashboard from "./user/AdminDashboard";
+import Report from './Report.js'
 
 
 const Routes = () => {
@@ -17,6 +18,7 @@ const Routes = () => {
                
                 <Route path="/signin" exact component={Signin} />
                 <Route path="/signup" exact component={Signup} />
+                <Route path="/form" exact component={Report} />
                 <PrivateRoute
                     path="/user/dashboard"
                     exact
@@ -32,6 +34,7 @@ const Routes = () => {
                     exact
                     component={AdminDashboard}
                 />
+
                
             </Switch>
         </BrowserRouter>
