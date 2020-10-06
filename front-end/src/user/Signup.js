@@ -23,6 +23,7 @@ const Signup = () => {
     event.preventDefault();
     setValues({ ...values, error: false });
     signup({ name, email, password }).then((data) => {
+      console.log(data)
       if (data.error) {
         setValues({ ...values, error: data.error, success: false });
       } else {
@@ -74,7 +75,7 @@ const Signup = () => {
           id="password"
           label="Password"
           variant="outlined"
-          type="text"
+          type="password"
           required="required"
           value={password}
           onChange={handleChange("password")}

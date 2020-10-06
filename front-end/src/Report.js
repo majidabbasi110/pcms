@@ -13,7 +13,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
+import {postcomplain} from './ApiUser'
 
 const useStyles = makeStyles((theme) => ({
     margin: {
@@ -31,12 +31,12 @@ const Report = () => {
         category: '',
         categories: [],
         room: '',
-        quantity: '',
+        building: '',
         photo: '',
         loading: false,
         error: '',
         createdproduct: '',
-        formdata: '',
+        formdata: new FormData(),
         redirectto: false,
     })
     
@@ -46,18 +46,42 @@ const Report = () => {
         category,
         categories,
         room,
-        quantity,
+        building,
         loading,
         error,
         createdproduct,
         formdata,
         redirectto } = values
         
-    const handlechange = name => event => {
-        const value = name === 'photo' ? event.target.files[0] : event.target.value
-        formdata.set(name, value)
-        setValues({ ...values, [name]: value })
+        const handlechange = name => event => {
+          const value = name === 'photo' ? event.target.files[0] : event.target.value
+          formdata.set(name, value)
+          setValues({ ...values, [name]: value })
+      }
+      const submitHandler =  async (event) => {
+        event.preventDefault()
+        setValues({ ...values, error: '', loading: true })
+        console.log(user._id, token, formdata)
+       await postcomplain(user._id, token, formdata).then(data => {
+           console.log(data)
+            if (data.error) {
+                setValues({ ...values, error: data.error })
+            }
+            else {
+                setValues({
+                    name: '',
+                    price: '',
+                    description: '',
+                    building: '',
+                    category:'',
+                    photo: '',
+                    loading: false,
+                    createdcomplain: data.data.name,
+                })
+            }
+        })
     }
+
     
     const showerror = () =>(
         <div className = 'alert alert-danger' style={{display : error ?  '' :'none' }}>
@@ -91,7 +115,7 @@ const Report = () => {
               type="text"
               required="required"
               value={name}
-         
+              onChange={handlechange('name')}
               style={{ width: "80%" }}
             />
             </div>
@@ -104,7 +128,7 @@ const Report = () => {
               type="text"
               required="required"
               value={description}
-         
+              onChange={handlechange('description')}
               style={{ width: "80%"}}
             />
             </div>
@@ -119,7 +143,7 @@ const Report = () => {
               type="number"
               required="required"
               value={room}
-         
+              onChange={handlechange('room')}
               style={{ width: "80%"}}
             />
             </div>
@@ -132,6 +156,8 @@ const Report = () => {
           id="demo-simple-select-outlined"
           label="Select your complain type"
           style = {{width : "300px"}}
+          value={category}
+          onChange={handlechange('category')}
         >
           <MenuItem value="">
             <em>None</em>
@@ -146,12 +172,14 @@ const Report = () => {
 
       <div className='form-group'>
       <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel id="demo-simple-select-outlined-label">Location</InputLabel>
+        <InputLabel id="demo-simple-select-outlined-label">Building</InputLabel>
         <Select
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
           label="Location"
           style = {{width : "300px"}}
+          value={building}
+          onChange={handlechange('building')}
         >
           <MenuItem value="">
             <em>None</em>
@@ -171,6 +199,8 @@ const Report = () => {
           type = "number"
           required="required"
           style={{right:"10px"}}
+          value={id}
+          onChange={handlechange('id')}
           className={clsx(classes.margin, classes.textField)}
           InputProps={{
             startAdornment: <InputAdornment position="start">
@@ -185,6 +215,7 @@ const Report = () => {
         type="submit"
         variant="contained"
         color="darkseagreen"
+        onClick={submitHandler}
       >
         Report Complain
       </Button>
@@ -198,7 +229,7 @@ const Report = () => {
   
     return (
         
-        <Layout title={`Welcome back ${isAuthenticated().user.name}. Add a new product and start shopping!`} description="Create Your Own Category" className='container'>
+        <Layout title={`Welcome back ${isAuthenticated().user.name}. Please Register Your Complaint Here!`} description="Create Your Own Category" className='container'>
             <div className='row'>
                 <div className='col-md-8 offset-md-2'>
                 {showerror()}

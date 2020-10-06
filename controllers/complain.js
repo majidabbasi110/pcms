@@ -13,8 +13,8 @@ exports.create = (req, res) => {
         err: "Image not found",
       });
     } else {
-      const { name, description, category, pno, room } = fields;
-      if (!name || !description || !category || !room || !pno) {
+      const { name, description, category, id, room,building} = fields;
+      if (!name || !description || !category || !room || !id || !building) {
         return res.status(400).json({
           err: "All fields are required",
         });
