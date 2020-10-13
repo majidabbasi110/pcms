@@ -13,7 +13,7 @@ exports.create = (req, res) => {
         err: "Image not found",
       });
     } else {
-      const { name, description, category, id, room,building} = fields;
+      const { name, description, category, id, room, building } = fields;
       if (!name || !description || !category || !room || !id || !building) {
         return res.status(400).json({
           err: "All fields are required",
@@ -90,5 +90,16 @@ exports.update = (req, res) => {
         }
       });
     }
+  });
+};
+
+exports.adminComplaints = (req, res) => {
+  Complain.find({}, (error, complaints) => {
+    if (error) {
+      res.status(400).json({
+        error: "Could not get Complaints",
+      });
+    }
+    res.json({ complaints });
   });
 };
