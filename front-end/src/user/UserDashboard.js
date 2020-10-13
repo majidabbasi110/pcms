@@ -15,7 +15,7 @@ const Dashboard = () => {
                 <ul className="list-group">
                     
                     <li className="list-group-item">
-                        <Link className="nav-link" to="/profile/update">
+                        <Link className="nav-link" to={`/profile/${_id}`}>
                             Update Profile
                         </Link>
                     </li>
@@ -39,17 +39,7 @@ const Dashboard = () => {
         );
     };
 
-    const purchaseHistory = () => {
-        return (
-            <div className="card mb-5">
-              
-                <ul className="list-group">
-                    <li className="list-group-item">history</li>
-                </ul>
-            </div>
-        );
-    };
-
+    
     return (
         <Layout
             title="Dashboard"
@@ -60,7 +50,6 @@ const Dashboard = () => {
                 <div className="col-3">{userLinks()}</div>
                 <div className="col-9">
                     {userInfo()}
-                    {purchaseHistory()}
                 </div>
             </div>
         </Layout>
