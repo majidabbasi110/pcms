@@ -8,6 +8,8 @@ import Dashboard from "./user/UserDashboard";
 import AdminRoute from "./auth/AdminRoute";
 import AdminDashboard from "./user/AdminDashboard";
 import Report from './Report.js'
+import AdminComplaints from './admin/AdminComplaints';
+import ForwardComplaints from './admin/ForwardComplaints'
 
 
 const Routes = () => {
@@ -34,6 +36,13 @@ const Routes = () => {
                     exact
                     component={AdminDashboard}
                 />
+                <Route exact path="/complaints" exact component={AdminComplaints} />
+        <Route
+          exact
+          path="/complaints/fwd"
+          exact
+          component={ForwardComplaints}
+        />
 
                
             </Switch>
