@@ -1,7 +1,7 @@
-import React from 'react';
-
-const Profile = () => {
-    const [] = useState({
+import React, { useEffect, useState} from 'react';
+import Layout from './core/Layout'
+const Profile = ({match}) => {
+    const [values,setvalues] = useState({
         name:'',
         email:'',
         password:'',
@@ -11,10 +11,23 @@ const Profile = () => {
 
     const {name,email,password,error,success} = values
 
+
+    const init = (uid) =>{
+        console.log(uid)
+    }
+
+    useEffect (() => {
+        init(match.params.uid)
+    },[])
     return (
-        <div>
+        <Layout
+            title="Home Page"
+            description="Update your profile"
+            className="container-fluid"
+        >
             
-        </div>
+            
+        </Layout>
     );
 };
 
