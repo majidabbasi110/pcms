@@ -10,28 +10,54 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import { getComplaints } from "./apiAdmin";
+import Layout from "../core/Layout";
+import { isAuthenticated } from "../auth";
 
 const AdminComplaints = () => {
-  const [complaints, setComplaints] = useState([
-    {
-      _id: 1,
-      photo: "",
-      name: "Hassan",
-      description: "Sudhar ja",
-      room: 303,
-      category: "bomb blast",
-      pno: 1234,
-    },
-    {
-      _id: 2,
-      photo: "",
-      name: "Hassan",
-      description: "jaa be",
-      room: 303,
-      category: "bomb blast",
-      pno: 1234,
-    },
-  ]);
+  const {
+    user: { _id, name, email, role },
+  } = isAuthenticated();
+
+  const adminLinks = () => {
+    return (
+      <div className="card">
+        <h4 className="card-header">Admin Links</h4>
+        <ul className="list-group">
+          <li className="list-group-item"></li>
+          <li className="list-group-item"></li>
+        </ul>
+      </div>
+    );
+  };
+
+  const adminInfo = () => {
+    return (
+      <div className="card mb-5">
+        <h3 className="card-header">User Information</h3>
+        <ul className="list-group">
+          <li className="list-group-item">{name}</li>
+          <li className="list-group-item">{email}</li>
+          <li className="list-group-item">
+            {role === 1 ? "Admin" : "Registered User"}
+          </li>
+        </ul>
+      </div>
+    );
+  };
+
+  const [complaints, setComplaints] = useState([]);
+
+  useEffect(() => {
+    const getC = async () => {
+      const complaint = await getComplaints();
+      console.log(complaint.complaints);
+      const all = complaint.complaints;
+      setComplaints(all);
+    };
+    getC();
+  }, []);
+
   const classes = useStyles();
 
   return (
@@ -40,7 +66,12 @@ const AdminComplaints = () => {
       path="/complaints"
       render={(props) => (
         <React.Fragment>
-          <AdminHeader />
+          <Layout
+            title="Dashboard"
+            description={`G'day ${name}!`}
+            className="container-fluid"
+          ></Layout>
+
           <div>
             <link
               href="https://fonts.googleapis.com/icon?family=Material+Icons"

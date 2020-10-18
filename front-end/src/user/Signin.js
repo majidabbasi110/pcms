@@ -66,7 +66,7 @@ const Signin = () => {
               id="password"
               label="Password"
               variant="outlined"
-              type="text"
+              type="password"
               required="required"
               value={password}
               onChange={handleChange("password")}
