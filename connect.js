@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const URI = 'mongodb+srv://piainterns:MajidAbbasi@pcms.zrjql.mongodb.net/test?retryWrites=true&w=majority';
+const URI = 'mongodb+srv://piainterns:MajidAbbasi@pcms.zrjql.mongodb.net/pia?retryWrites=true&w=majority';
 
 //db
 mongoose.Promise = global.Promise;

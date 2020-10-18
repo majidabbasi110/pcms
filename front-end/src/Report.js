@@ -240,7 +240,7 @@ const Report = () => {
           
     return (
         
-        <Layout title={`Welcome back ${isAuthenticated().user.name}. Please Register Your Complaint Here!`} description="Create Your Own Category" className='container'>
+        <Layout title={`Welcome back ${isAuthenticated().user.name}.`} description="Please Register Your Complaint Here!" className='container'>
             <div className='row'>
                 <div className='col-md-8 offset-md-2'>
                 {showerror()}

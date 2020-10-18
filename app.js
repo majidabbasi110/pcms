@@ -19,6 +19,7 @@ const app = express();
 
 connectDB();
 
+
 // middlewares
 app.use(morgan("dev"));
 app.use(bodyParser.json());

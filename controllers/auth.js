@@ -20,6 +20,23 @@ exports.signup = (req, res) => {
   });
 };
 
+// exports.update = (req, res) => {
+//     const {name,email,password} = req.body;
+//     user.save((err, user) => {
+//     if (err) {
+//         return res.status(400).json({
+//             error: errorHandler(err)
+//         });
+//     }
+//     user.salt = undefined;
+//         user.hashed_password = undefined;
+//         res.json({
+//             newinfo
+//         });
+// }
+
+// }
+
 exports.signin = (req, res) => {
   // find the user based on email
   const { email, password } = req.body;

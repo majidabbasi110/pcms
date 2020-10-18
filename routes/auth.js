@@ -7,10 +7,15 @@ const {
     signout,
     requireSignin
 } = require("../controllers/auth");
+const {
+    update
+} = require("../controllers/user")
+
 const { userSignupValidator } = require("../validator");
 
 router.post("/signup", userSignupValidator, signup);
 router.post("/signin", signin);
 router.get("/signout", signout);
+router.get("/update", update)
 
 module.exports = router;
