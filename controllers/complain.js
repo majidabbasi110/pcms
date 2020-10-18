@@ -4,26 +4,27 @@ const _ = require("lodash");
 const fs = require("fs");
 
 exports.create = (req, res) => {
+  console.log(req.body)
   let form = formidable.IncomingForm();
   form.keepExtensions = true;
   form.parse(req, (err, fields, files) => {
     if (err) {
       console.log(err);
       return res.status(400).json({
-        err: "Image not found",
+        error: "Image not found",
       });
     } else {
-      const { name, description, category, id, room, building } = fields;
-      if (!name || !description || !category || !room || !id || !building) {
+      const { name, description, category, pno, room, building, userid} = fields;
+      if (!name || !description || !category || !room || !pno || !building ) {
         return res.status(400).json({
-          err: "All fields are required",
+          error: "All fields are required",
         });
       }
       let complain = new Complain(fields);
       if (files.photo) {
         if (files.photo.size > 100000) {
           res.status(400).json({
-            err: "Image should not be greater than 1MB",
+            error: "Image should not be greater than 1MB",
           });
         } else {
           complain.photo.data = fs.readFileSync(files.photo.path);
@@ -60,7 +61,7 @@ exports.update = (req, res) => {
       const { name, description, category, pno, room } = fields;
       if (!name || !description || !category || !room || !pno) {
         return res.status(400).json({
-          err: "All fields are required",
+          error: "All fields are required",
         });
       }
       let complain = req.complain;
@@ -69,7 +70,7 @@ exports.update = (req, res) => {
       if (files.photo) {
         if (files.photo.size > 1000000) {
           res.status(400).json({
-            err: "Image should not be greater than 1MB",
+            error: "Image should not be greater than 1MB",
           });
         } else {
           complain.photo.data = fs.readFileSync(files.photo.path);

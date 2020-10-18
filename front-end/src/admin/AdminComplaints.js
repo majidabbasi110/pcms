@@ -32,6 +32,7 @@ const AdminComplaints = () => {
       pno: 1234,
     },
   ]);
+  const [comp, setComp]= useState([])
   const classes = useStyles();
 
   return (

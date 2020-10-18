@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const user = require("./user");
 
 const complainSchema = new mongoose.Schema(
   {
@@ -12,6 +13,10 @@ const complainSchema = new mongoose.Schema(
       type: String,
       required: true,
       maxlength: 2000,
+    },
+    userid:{
+      type: String,
+      trim: true,
     },
     room: {
       type: Number,

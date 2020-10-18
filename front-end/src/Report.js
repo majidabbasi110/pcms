@@ -1,4 +1,3 @@
-
 import React, { Component, useState, useEffect } from 'react';
 import Layout from './core/Layout'
 import { isAuthenticated } from './auth/index'
@@ -15,18 +14,23 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import {postcomplain} from './ApiUser'
 
+const { token, user } = isAuthenticated()
+
+
 const useStyles = makeStyles((theme) => ({
     margin: {
       margin: theme.spacing(1),
     },
   }));
 
+  console.log(user._id)
+
 const Report = () => {
     const classes = useStyles();
     const [values, setValues] = useState({
-
+        userid:'',
         name: '',
-        id: '',
+        pno:'',
         description: '',
         category: '',
         categories: [],
@@ -41,7 +45,8 @@ const Report = () => {
     })
     
     const { name,
-        id,
+      userid,
+        pno,
         description,
         category,
         categories,
@@ -49,19 +54,22 @@ const Report = () => {
         building,
         loading,
         error,
-        createdproduct,
+        createdcomplain,
         formdata,
         redirectto } = values
         
         const handlechange = name => event => {
+          console.log(name,pno)
           const value = name === 'photo' ? event.target.files[0] : event.target.value
           formdata.set(name, value)
-          setValues({ ...values, [name]: value })
-      }
+         
+          setValues({ ...values , [name]: value })
+      } 
       const submitHandler =  async (event) => {
         event.preventDefault()
         setValues({ ...values, error: '', loading: true })
-        console.log(user._id, token, formdata)
+        formdata.set('userid',user._id);
+          formdata.set('name',user.name)
        await postcomplain(user._id, token, formdata).then(data => {
            console.log(data)
             if (data.error) {
@@ -69,14 +77,17 @@ const Report = () => {
             }
             else {
                 setValues({
+                    userid:'',
                     name: '',
                     price: '',
                     description: '',
                     building: '',
+                    room:'',
                     category:'',
+                    pno:'',
                     photo: '',
                     loading: false,
-                    createdcomplain: data.data.name,
+                    createdcomplain: data.data.name ,
                 })
             }
         })
@@ -89,8 +100,8 @@ const Report = () => {
         </div>
     )
     const showsuccess = () =>(
-        <div className = 'alert alert-info' style={{display : createdproduct ?  '' :'none' }}>
-         <h2>   {`${createdproduct}`} is now created</h2>
+        <div className = 'alert alert-info' style={{display : createdcomplain ?  '' :'none' }}>
+         <h2>   {`${createdcomplain}`} your complain has now been forwarded</h2>
         </div>
     )
     const showloading = () =>(
@@ -114,8 +125,8 @@ const Report = () => {
               variant="outlined"
               type="text"
               required="required"
-              value={name}
-              onChange={handlechange('name')}
+              value={user.name}
+              disabled="disabled"
               style={{ width: "80%" }}
             />
             </div>
@@ -199,8 +210,8 @@ const Report = () => {
           type = "number"
           required="required"
           style={{right:"10px"}}
-          value={id}
-          onChange={handlechange('id')}
+          value={pno}
+          onChange={handlechange('pno')}
           className={clsx(classes.margin, classes.textField)}
           InputProps={{
             startAdornment: <InputAdornment position="start">
@@ -226,7 +237,7 @@ const Report = () => {
     )
 
     const { token, user } = isAuthenticated()
-  
+          
     return (
         
         <Layout title={`Welcome back ${isAuthenticated().user.name}. Please Register Your Complaint Here!`} description="Create Your Own Category" className='container'>
