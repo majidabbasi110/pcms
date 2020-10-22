@@ -25,24 +25,60 @@ This project is currently a work-in-progress. The project heads wanted this Proj
 
 ## Visuals
 
-```bash
-pip install foobar
+This is the registeration Page.
+
+<img src='https://i.ibb.co/2WzbKnt/Register.jpg' >
+
+This is the Login Page
+
+<img src='https://i.ibb.co/8Prh3Nc/SignIn.jpg' >
+
+This the complaint form which normal users will have access to.
+
+<img src='https://i.ibb.co/RTjB016/Form.jpg' >
+
+If an admin log in, they can see all the complaints which have been launched by the users.
+
+<img src='https://i.ibb.co/jJsxb8z/Complaints.jpg' >
+
+Clicking on the Action icon will take to another screen which will give a detailed description about the complaint.
+
+<img src='https://i.ibb.co/HY5mH9f/Forward.jpg' >
+
+Yet to be implemented is the functionality which directs the user to another page when they click on 'Send Complaint to' Button where they can forward this complaint to relevant people. 
+
+## Installation
+
+Pull the project using the Git Link. Install relevant packages which are needed using:
+```javascript
+npm install
 ```
+After all the dependencies are installed, start the backend by going opening the terminal in the pcms folder and write:
 
-## Usage
-
-```python
-import foobar
-
-foobar.pluralize('word') # returns 'words'
-foobar.pluralize('goose') # returns 'geese'
-foobar.singularize('phenomena') # returns 'phenomenon'
+```javascript
+npm start
 ```
+Then open another terminal in the front-end folder and write:
 
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+```javascript
+npm start
+```
+The Project will start.
 
-Please make sure to update tests as appropriate.
 
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
+## Notes
+
+- The Project follows the MVC Framework so you'll find the backend code in model, router and controller folders.
+- The view(front-end) will be in the front-end folder.
+- The Admin Folder in the front-end has code relevant to the admins.
+- APIs are called from the apiAdmin file.
+- The user folder in the front-end has code relevant to the normal user.
+- Their APIs are called from the apiUser file.
+
+
+## Contributors
+- Abdul Moiz Asif
+- Hassan Shah
+- Majid Abbasi
+
+
