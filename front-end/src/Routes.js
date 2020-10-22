@@ -10,7 +10,7 @@ import AdminDashboard from "./user/AdminDashboard";
 import Report from "./Report.js";
 import AdminComplaints from "./admin/AdminComplaints";
 import ForwardComplaints from "./admin/ForwardComplaints";
-import UpdateProfile from "./core/UpdateProfile"
+import Profile from "./Profile"
 
 const Routes = () => {
   return (
@@ -20,7 +20,7 @@ const Routes = () => {
 
         <Route path="/signin" exact component={Signin} />
         <Route path="/signup" exact component={Signup} />
-        <Route path="/profile/:userId" exact component={UpdateProfile} />
+        <PrivateRoute path="/profile/:userId" exact component={Profile} />
         <PrivateRoute path="/user/dashboard" exact component={Dashboard} />
         <PrivateRoute
           path="/user/dashboard/:uid/:passwordHash"
