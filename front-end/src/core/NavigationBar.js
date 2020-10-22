@@ -47,20 +47,7 @@ export default class NavigationBar extends Component {
                             </NavItem>
 
                             {/* Pull right */}
-                            <UncontrolledDropdown nav inNavbar>
-                                <DropdownToggle nav caret className="active">
-                                Shop
-                                </DropdownToggle>
-
-                                <DropdownMenu className="nav-item submenu dropdown" >
-                                <DropdownItem className="nav-item">
-                                    Product Details
-                                </DropdownItem>
-                                <DropdownItem className="nav-item">
-                                    Shopping Cart
-                                </DropdownItem>
-                                </DropdownMenu>
-                            </UncontrolledDropdown>
+                            
 
                             <NavItem>
                                     <NavLink href="/" className="active">
@@ -68,11 +55,7 @@ export default class NavigationBar extends Component {
                                     </NavLink>
                                 </NavItem>
 
-                                <NavItem>
-                                    <NavLink href="/" className="active">
-                                        Blog
-                                    </NavLink>
-                            </NavItem>
+                                
                         </Nav>
                         </div>
                         </div>
