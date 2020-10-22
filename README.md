@@ -55,6 +55,10 @@ Pull the project using the Git Link. Install relevant packages which are needed 
 ```javascript
 npm install
 ```
+To Install all the dependencies, just write in the terminal
+```javascript
+npm install
+``` 
 After all the dependencies are installed, start the backend by going opening the terminal in the pcms folder and write:
 
 ```javascript
