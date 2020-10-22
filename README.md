@@ -2,21 +2,23 @@
 
 # PCMS
 
-PCMS also known as PIA Complaint Management System is a Web Application to be used for recording complaints within PIA departments.
+PCMS abbrevation for PIA Complaint Management System which is a Web based Application to be used for recording complaints within PIA departments.
 
 ## Description
 
-This project is currently a work-in-progress. The project heads wanted this Project to solve issue of delayed response when fixing things within PIA Departments. So this project came into existence. The aim of this Web Application is quickly forward the complaints to the relevant authorities.
+The project heads wanted this Project to solve issue of delayed response when fixing things within PIA Departments. So this project came into existence. The aim of this Web Application is quickly forward the complaints to the relevant authorities. *This project is currently a work-in-progress.*
 
 ### Features
 - Register User
 - Login User
 - Auhtenticate User
+- Update User Information
 - Admin Role
 - Normal User Role
 - Report Complaint
 - Add Photos in Complaint
 - See All the Complaints launched in the Admin Role
+- Admin and Private routes for admin and local users respectively
 
 #### Features yet to be Implemented
 - Close a Complaint
@@ -78,7 +80,8 @@ The Project will start.
 
 ## Contributors
 - Abdul Moiz Asif
-- Hassan Shah
 - Majid Abbasi
+- Hassan Shah
+
 
 
