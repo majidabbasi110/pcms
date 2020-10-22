@@ -45,7 +45,7 @@ export const getCategories = () => {
     .catch((err) => console.log(err));
 };
 
-export const getComplaints = async () => {
+export const getComplaints = async (userId, token) => {
   return await fetch("http://localhost:8000/api/admincomplaints", {
     method: "GET",
   })

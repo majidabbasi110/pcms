@@ -1,128 +1,92 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import Layout from "../core/Layout";
-import { TextField, Button } from "@material-ui/core";
-import { update } from "../auth";
+import React, { useState, useEffect } from 'react';
+import Layout from '../core/Layout';
+import { isAuthenticated } from '../auth';
+import { Link, Redirect } from 'react-router-dom';
+import { read, update, updateUser } from '../user/apiUser';
 
-const Update = () => {
-  const [values, setValues] = useState({
-    name: "",
-    email: "",
-    password: "",
-    error: "",
-    success: false,
-  });
-
-  const { name, email, password, success, error } = values;
-
-  const handleChange = (name) => (event) => {
-    setValues({ ...values, error: false, [name]: event.target.value });
-  };
-
-  const clickSubmit = (event) => {
-    event.preventDefault();
-    setValues({ ...values, error : false });
-    update({ name, email, password }).then((data) => {
-      console.log(data)
-      if (data.error) {
-        setValues({ ...values, error: data.error, success: false });
-      }
-       else {
-        setValues({
-          ...values,
-          name: "",
-          email: "",
-          password: "",
-          error: "",
-          success: true,
-        });
-      }
+const Profile = ({ match }) => {
+    const [values, setValues] = useState({
+        name: '',
+        email: '',
+        password: '',
+        error: false,
+        success: false
     });
-  };
 
-  const updateForm = () => (
-    <form style={{ textAlign: "center" }} noValidate autoComplete="off">
-      <h2 className="text-center" style={{ padding: "15px" }}>
-        Update
-      </h2>
-      <div className="form-group">
-        <TextField
-          id="name"
-          label="Update Name"
-          variant="outlined"
-          type="text"
-          required="required"
-          value={name}
-          onChange={handleChange("name")}
-          style={{ width: "60%" }}
-        />
-      </div>
+    const { token } = isAuthenticated();
+    const { name, email, password, error, success } = values;
 
-      <div className="form-group">
-        <TextField
-          id="Email"
-          label="Update Email"
-          variant="outlined"
-          type="text"
-          required="required"
-          value={email}
-          onChange={handleChange("email")}
-          style={{ width: "60%" }}
-        />
-      </div>
+    const init = userId => {
+        // console.log(userId);
+        read(userId, token).then(data => {
+            if (data.error) {
+                setValues({ ...values, error: true });
+            } else {
+                setValues({ ...values, name: data.name, email: data.email });
+            }
+        });
+    };
 
-      <div className="form-group">
-        <TextField
-          id="password"
-          label="Update Password"
-          variant="outlined"
-          type="password"
-          required="required"
-          value={password}
-          onChange={handleChange("password")}
-          style={{ width: "60%" }}
-        />
-      </div>
-      <Button
-        onClick={clickSubmit}
-        type="submit"
-        variant="contained"
-        color="primary"
-      >
-        Update
-      </Button>
-    </form>
-  );
+    useEffect(() => {
+        init(match.params.userId);
+    }, []);
 
-  const showError = () => (
-    <div
-      className="alert alert-danger"
-      style={{ display: error ? "" : "none" }}
-    >
-      {error}
-    </div>
-  );
+    const handleChange = name => e => {
+        setValues({ ...values, error: false, [name]: e.target.value });
+    };
 
-  const showSuccess = () => (
-    <div
-      className="alert alert-info"
-      style={{ display: success ? "" : "none" }}
-    >
-     Your Profile is update 
-    </div>
-  );
+    const clickSubmit = e => {
+        e.preventDefault();
+        update(match.params.userId, token, { name, email, password }).then(data => {
+            if (data.error) {
+                //console.log(data.error);
+              alert( data.error)
+                updateUser(data, () => {
+                    setValues({
+                        ...values,
+                        name: data.name,
+                        email: data.email,
+                        success: true
+                    });
+                });
+            }
+        });
+    };
 
-  return (
-    <Layout
-      title="Update"
-      description="Update your profile"
-      className="container col-md-8 offset-md-2"
-    >
-      {showSuccess()}
-      {showError()}
-      {updateForm()}
-    </Layout>
-  );
+    const redirectUser = success => {
+        if (success) {
+            return <Redirect to="/user/dashboard" />;
+        }
+    };
+
+    const profileUpdate = (name, email, password) => (
+        <form>
+            <div className="form-group">
+                <label className="text-muted" >Name</label>
+                <input type="text" onChange={handleChange('name')} className="form-control" value={name} />
+            </div>
+            <div className="form-group">
+                <label className="text-muted" >Email</label>
+                <input type="email" onChange={handleChange('email')} className="form-control" value={email} />
+            </div>
+            <div className="form-group">
+                <label className="text-muted">Password</label>
+                <input type="password" onChange={handleChange('password')} className="form-control" value={password} />
+            </div>
+
+            <button onClick={clickSubmit} className="btn btn-primary">
+                Submit
+            </button>
+        </form>
+    );
+
+    return (
+        <Layout title="Profile" description="Update your profile" className="container-fluid">
+            <h2 className="mb-4">Profile update</h2>
+            {profileUpdate(name, email, password)}
+            {redirectUser(success)}
+        </Layout>
+    );
 };
 
-export default Update;
+export default Profile;

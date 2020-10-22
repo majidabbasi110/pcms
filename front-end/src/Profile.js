@@ -1,13 +1,16 @@
 import React, { useEffect, useState} from 'react';
 import Layout from './core/Layout'
+
+
 const Profile = ({match}) => {
-    const [values,setvalues] = useState({
+   
         name:'',
         email:'',
         password:'',
         error:'',
         success:false
     })
+}
 
     const {name,email,password,error,success} = values
 
