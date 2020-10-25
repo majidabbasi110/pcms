@@ -18,10 +18,10 @@ const { token, user } = isAuthenticated()
 
 
 const useStyles = makeStyles((theme) => ({
-    margin: {
-      margin: theme.spacing(1),
-    },
-  }));
+  margin: {
+    margin: theme.spacing(1),
+  },
+}));
 
   console.log(user._id)
 
@@ -202,27 +202,100 @@ const Report = () => {
       </FormControl>
       </div>
 
-            
-      <div  className='form-group'>
+      <div className="form-group">
+        <TextField
+          id="filled-multiline-static"
+          label="Description"
+          variant="outlined"
+          type="text"
+          required="required"
+          value={description}
+          onChange={handlechange("description")}
+          style={{ width: "80%" }}
+        />
+      </div>
+
+      <div className="form-group">
+        <TextField
+          id="outlined-basic"
+          label="Room.No"
+          variant="outlined"
+          type="number"
+          required="required"
+          value={room}
+          onChange={handlechange("room")}
+          style={{ width: "80%" }}
+        />
+      </div>
+
+      <div className="form-group">
+        <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel id="demo-simple-select-outlined-label">
+            Select your complain type
+          </InputLabel>
+          <Select
+            labelId="demo-simple-select-outlined-label"
+            id="demo-simple-select-outlined"
+            label="Select your complain type"
+            style={{ width: "300px" }}
+            value={category}
+            onChange={handlechange("category")}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </FormControl>
+      </div>
+
+      <div className="form-group">
+        <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel id="demo-simple-select-outlined-label">
+            Building
+          </InputLabel>
+          <Select
+            labelId="demo-simple-select-outlined-label"
+            id="demo-simple-select-outlined"
+            label="Location"
+            style={{ width: "300px" }}
+            value={building}
+            onChange={handlechange("building")}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </FormControl>
+      </div>
+
+      <div className="form-group">
         <TextField
           label="P.NO"
           id="outlined-start-adornment"
-          type = "number"
+          type="number"
           required="required"
           style={{right:"10px"}}
           value={pno}
           onChange={handlechange('pno')}
           className={clsx(classes.margin, classes.textField)}
           InputProps={{
-            startAdornment: <InputAdornment position="start">
-                <AccountCircle/>
-            </InputAdornment>,
+            startAdornment: (
+              <InputAdornment position="start">
+                <AccountCircle />
+              </InputAdornment>
+            ),
           }}
           variant="outlined"
         />
-            </div>
-        
-            <Button
+      </div>
+
+      <Button
         type="submit"
         variant="contained"
         color="darkseagreen"
@@ -230,30 +303,31 @@ const Report = () => {
       >
         Report Complain
       </Button>
-        </form>
+    </form>
+  );
+
+  const { token, user } = isAuthenticated();
+  console.log(user._id);
+  return (
+    <Layout
+      title={`Welcome back ${
+        isAuthenticated().user.name
+      }. Please Register Your Complaint Here!`}
+      description="Create Your Own Category"
+      className="container"
+    >
+      <div className="row">
+        <div className="col-md-8 offset-md-2">
+          {showerror()}
+          {showloading()}
+          {showsuccess()}
+          {newform()}
+        </div>
+      </div>
+    </Layout>
+  );
+};
 
 
-
-    )
-
-    const { token, user } = isAuthenticated()
-          
-    return (
-        
-        <Layout title={`Welcome back ${isAuthenticated().user.name}.`} description="Please Register Your Complaint Here!" className='container'>
-            <div className='row'>
-                <div className='col-md-8 offset-md-2'>
-                {showerror()}
-                    {showloading()}
-                    {showsuccess()}
-                    {newform()}  
-                </div>
-
-
-            </div>
-
-        </Layout>
-    )
-}
 
 export default Report;

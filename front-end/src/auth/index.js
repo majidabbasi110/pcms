@@ -18,7 +18,7 @@ export const signup = user => {
 };
 
 export const update = user => {
-    return fetch(`${API}/update`, {
+    return fetch(`${API}user/:userId`, {
         method: "POST",
         headers: {
             Accept: "application/json",
