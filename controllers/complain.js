@@ -104,3 +104,25 @@ exports.adminComplaints = (req, res) => {
     res.json({ complaints });
   });
 };
+
+exports.photo= (req,res,next) =>{
+  if(req.complain.photo.data){
+      res.set('Content-Type',req.complain.photo.contentType)
+      return res.send(req.complain.photo.data)        
+  }
+next()  
+}
+exports.complaintbyid = (req, res,next,id) => {
+  Complain.findById(id).exec((err,complaint)=>{
+    console.log(complaint)
+      if(err || !complaint){
+        console.log(err)
+         return res.status(400).json({
+              error:"Complaint is not found"
+          })
+      }
+      req.complain=complaint
+      next()
+  })  
+ 
+}

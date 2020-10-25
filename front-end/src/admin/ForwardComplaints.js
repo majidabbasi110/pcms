@@ -12,8 +12,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
-
+import Layout from "../core/Layout";
+import { isAuthenticated } from "../auth";
+import Card from "../core/Card"
 
 const useStyles = makeStyles((theme) => ({
     margin: {
@@ -23,7 +24,11 @@ const useStyles = makeStyles((theme) => ({
 
 
 const ForwardComplaints = (props) => {
+  
 
+  const {
+    user: { _id, name, email, role },
+  } = isAuthenticated();
     const classes = useStyles();
     const newform = () => (
         <form className='mb-3' >
@@ -55,6 +60,19 @@ const ForwardComplaints = (props) => {
             </div>
 
 
+            <div className='form-group'>
+                <TextField
+              disabled id="standard-disabled"
+              label="Building"
+              variant="outlined"
+              type="text"
+              required="required"
+              value={props.location.state.building}
+              style={{ width: "80%"}}
+            />
+            </div>
+
+
 
             <div className='form-group'>
                 <TextField
@@ -70,69 +88,53 @@ const ForwardComplaints = (props) => {
             </div>
 
             <div className='form-group'>
-      <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel id="demo-simple-select-outlined-label">Select your complain type</InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
-          label="Select your complain type"
-          style = {{width : "300px"}}
-          value={props.location.state.category}
-          
-        >
-          
-        </Select>
-      </FormControl>
-          </div>
-
-
-      <div className='form-group'>
-      <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel id="demo-simple-select-outlined-label">Building</InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
-          label="Location"
-          style = {{width : "300px"}}
-          value={props.location.state.building}
-          
-        >
-        </Select>
-      </FormControl>
-      </div>
-
-            
-      <div  className='form-group'>
-        <TextField
-          label="P.NO"
-          id="outlined-start-adornment"
-          type = "number"
-          required="required"
-          style={{right:"10px"}}
-          value={props.location.state.pno}
-          
-          className={clsx(classes.margin, classes.textField)}
-          InputProps={{
-            startAdornment: <InputAdornment position="start">
-                <AccountCircle/>
-            </InputAdornment>,
-          }}
-          variant="outlined"
-        />
-        <h4>Photo</h4>
-          
-          <label className='btn btn-secondary' style={{"background-color": "darkseagreen"}}>
-              <a>Show Photo</a>
-          </label>
+                <TextField
+              disabled id="standard-disabled"
+              label="Category"
+              variant="outlined"
+              type="text"
+              required="required"
+              value={props.location.state.category}
+              style={{ width: "80%"}}
+            />
             </div>
+
+
+      
+      
+      <div className='form-group'>
+                <TextField
+              disabled id="standard-disabled"
+              label="P.No"
+              variant="outlined"
+              type="number"
+              required="required"
+              value={props.location.state.pno}
+              style={{ width: "80%"}}
+            />
+            </div>
+            
+        <div  className='form-group'>
         
-            <Button
-        type="submit"
-        variant="contained"
-        color="darkseagreen"
-      >
-        Send Complain to
-      </Button>
+              <h4>Photo</h4>
+              <div>
+              {<Card complaint={props.location.state}/>}
+              </div>
+              
+              
+              <div>
+              <Button
+              type="submit"
+              variant="contained"
+              color="darkseagreen"
+            >
+              Send Complain to
+            </Button>
+              </div>
+              
+      </div>
+        
+            
         </form>
 
 
@@ -142,8 +144,12 @@ const ForwardComplaints = (props) => {
 
   return (
     <div>
-      <AdminHeader />
-      <div>{props.location.state.name}</div>
+      <Layout
+            title="Dashboard"
+            description={`G'day ${name}!`}
+            className="container-fluid"
+          ></Layout>
+      
       <div className='col-md-8 offset-md-2'>
       {newform()}
       </div>

@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Layout from "../core/Layout";
 import { TextField, Button } from "@material-ui/core";
-import { update } from "../auth";
+import { update } from "./apiCore";
+import { isAuthenticated } from '../auth/index'
 
+
+
+const { user } = isAuthenticated()
 const Update = () => {
   const [values, setValues] = useState({
-    name: "",
-    email: "",
+    name: user.name,
+    email: user.email,
     password: "",
     error: "",
     success: false,
@@ -48,7 +52,7 @@ const Update = () => {
       <div className="form-group">
         <TextField
           id="name"
-          label="Update Name"
+          label="Name"
           variant="outlined"
           type="text"
           required="required"
@@ -61,7 +65,7 @@ const Update = () => {
       <div className="form-group">
         <TextField
           id="Email"
-          label="Update Email"
+          label="Email"
           variant="outlined"
           type="text"
           required="required"

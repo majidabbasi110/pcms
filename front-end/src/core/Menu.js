@@ -31,6 +31,18 @@ const Menu = ({ history }) => (
         </li>
       )}
 
+{isAuthenticated() && isAuthenticated().user.role === 0 && (
+        <li className="nav-item">
+          <Link
+            className="nav-link"
+            style={isActive(history, "/form")}
+            to="/form"
+          >
+            Complaint Form
+          </Link>
+        </li>
+      )}
+
       {isAuthenticated() && isAuthenticated().user.role === 1 && (
         <li className="nav-item">
           <Link
@@ -39,6 +51,18 @@ const Menu = ({ history }) => (
             to="/admin/dashboard"
           >
             Dashboard
+          </Link>
+        </li>
+      )}
+
+{isAuthenticated() && isAuthenticated().user.role === 1 && (
+        <li className="nav-item">
+          <Link
+            className="nav-link"
+            style={isActive(history, "/complaints")}
+            to="/complaints"
+          >
+            Complaints
           </Link>
         </li>
       )}
